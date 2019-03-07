@@ -19,11 +19,11 @@ public class PasswordViewModel extends ViewModel {
     }
 
     public String getPasswordQuality() {
-        if (password == null || getPassword().equals("")) {
+        if (getPassword() == null || getPassword().equals("")) {
             return "Enter a password";
-        } else if (password.getValue().equals("password")) {
+        } else if (getPassword().equalsIgnoreCase("password")) {
             return "Very bad";
-        } else if (password.getValue().length() < 6) {
+        } else if (getPassword().length() < 6) {
             return "Short";
         } else {
             return "Okay";
@@ -31,7 +31,7 @@ public class PasswordViewModel extends ViewModel {
     }
 
     public void setPassword(String password) {
-        if(!this.password.getValue().equals(password)) {
+        if(!getPassword().equalsIgnoreCase(password)) {
             this.password.setValue(password);
             //notifyPropertyChanged(BR.passwordQuality);
             //notifyPropertyChanged(BR.password);

@@ -44,7 +44,7 @@
             android:layout_marginTop="16dp"
             android:text = ""
             android:onTextChanged="@{(text,start,before,count) -> viewModel.onPasswordTextChanged(text)}"/>
-        <!-- TODO: create a TWO-way reference to the password property using @={viewModel.password} -->
+        <!-- create a TWO-way reference to the password property using @={viewModel.password} -->
 
 
         <TextView
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/qualityPrompt"
             android:text=""/>
-        <!-- TODO: create a ONE-way reference to the passwordQuality property using @{viewModel.passwordQuality}-->
+        <!-- create a ONE-way reference to the passwordQuality property using @{viewModel.passwordQuality}-->
 
     </android.support.constraint.ConstraintLayout>
 </layout>
