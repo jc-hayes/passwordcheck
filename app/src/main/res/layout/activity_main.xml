@@ -42,7 +42,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"
-            android:text = ""/>
+            android:text = ""
+            android:onTextChanged="@{(text,start,before,count) -> viewModel.onPasswordTextChanged(text)}"/>
         <!-- TODO: create a TWO-way reference to the password property using @={viewModel.password} -->
 
 

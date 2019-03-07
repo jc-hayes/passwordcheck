@@ -1,23 +1,29 @@
 package edu.cascadia.mobile.apps.passwordcheck;
 // Adapted from https://www.bignerdranch.com/blog/two-way-data-binding-on-android-observing-your-view-with-xml/
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 
-public class PasswordViewModel extends BaseObservable {
-    private String password;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 
-    @Bindable
-    public String getPassword() {
-        return password;
+
+public class PasswordViewModel extends ViewModel {
+    public MutableLiveData<String> password;
+    public MutableLiveData<String> passwordQuality;
+
+    public PasswordViewModel() {
+        password = new MutableLiveData<>();
+        passwordQuality = new MutableLiveData<>();
     }
 
-    @Bindable
+    public String getPassword() {
+        return password.getValue();
+    }
+
     public String getPasswordQuality() {
-        if (password == null || password.isEmpty()) {
+        if (password == null || getPassword().equals("")) {
             return "Enter a password";
-        } else if (password.equals("password")) {
+        } else if (password.getValue().equals("password")) {
             return "Very bad";
-        } else if (password.length() < 6) {
+        } else if (password.getValue().length() < 6) {
             return "Short";
         } else {
             return "Okay";
@@ -25,12 +31,15 @@ public class PasswordViewModel extends BaseObservable {
     }
 
     public void setPassword(String password) {
-        if(this.password != password) {
-            this.password = password;
-            notifyPropertyChanged(BR.passwordQuality);
-            notifyPropertyChanged(BR.password);
+        if(!this.password.getValue().equals(password)) {
+            this.password.setValue(password);
+            //notifyPropertyChanged(BR.passwordQuality);
+            //notifyPropertyChanged(BR.password);
         }
     }
 
-
+    public void onPasswordTextChanged(CharSequence charSequence) {
+        setPassword(charSequence.toString());
+        getPasswordQuality();
+    }
 }
